@@ -1,22 +1,24 @@
 package com.piotrkafel;
 
-import static spark.Spark.*;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.skyscreamer.jsonassert.JSONAssert;
+
+import static spark.Spark.post;
+import static spark.Spark.staticFileLocation;
 
 public class HelloWorld {
 
     public static void main(String[] args) {
 
-        get("/hello", (request, response) -> "Hello World!");
+        staticFileLocation("/public");
 
         post("/compare", (request, respone) -> {
-            final String body = request.body();
-            final JSONObject jsonObject = new JSONObject(body);
-            final JSONObject firstJson = jsonObject.getJSONObject("firstJson");
-            final JSONObject secondJson = jsonObject.getJSONObject("secondJson");
+            String json1 = request.queryParams("message1");
+            String json2 = request.queryParams("message2");
+
+            final JSONObject firstJson = new JSONObject(json1);
+            final JSONObject secondJson = new JSONObject(json2);
 
             return areJsonsEqual(firstJson, secondJson);
         });
