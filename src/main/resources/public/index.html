@@ -1,21 +1,71 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Untitled Form</title>
+    <meta charset="utf-8">
+    <title>Falcon, the ultimate Json differ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ultimate json differ">
+    <meta name="author" content="Piotr Kafel, Karolina Rusin">
+
+    <!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+    <!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+    <!--script src="js/less-1.3.3.min.js"></script-->
+    <!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
 </head>
-<body id="main_body">
-<form action="/json/compare" method="POST" enctype="application/x-www-form-urlencoded">
-    <div class="row">
-        <label for="message1">First json:</label><br/>
-        <textarea id="message1" class="input" name="message1" rows="7" cols="30"></textarea><br/>
+
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h1>
+                    Falcon Json Differ
+                    <small>alpha</small>
+                </h1>
+            </div>
+            <!-- Alert view
+            <div class="alert alert-success alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong>Correct or incorrect!</strong>
+            </div>
+            -->
+            <form action="/json/compare" method="POST" enctype="application/x-www-form-urlencoded" role="form">
+                <div class="row clearfix">
+                    <div class="col-md-6 column form-group">
+                        <label for="message1">First json:</label>
+                        <textarea id="message1" name="message1" class="form-control" rows="7"></textarea>
+                    </div>
+                    <div class="col-md-6 column form-group">
+                        <label for="message2">Second json:</label>
+                        <textarea id="message2" name="message2" class="form-control" rows="7"></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
     </div>
-    <div class="row">
-        <label for="message2">Second json:</label><br/>
-        <textarea id="message2" class="input" name="message2" rows="7" cols="30"></textarea><br/>
+</div>
+<footer role="contentinfo">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-md-12">
+                <hr/>
+                <p>All rights reserved @ 2015</p>
+            </div>
+        </div>
     </div>
-    <input id="submit_button" type="submit" />
-</form>
+</footer>
 </body>
 </html>
