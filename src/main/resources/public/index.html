@@ -35,19 +35,19 @@
                         url = $form.attr('action');
 
                 /* Send the data using post */
-                var posting = $.post(url, { message1: $('#message1').val(), message2: $('#message2').val() });
+                var posting = $.post(url, { json1: $('#json1').val(), json2: $('#json2').val() });
 
                 /* Alerts the results */
                 posting.done(function (data) {
                     $('#resultMessage')
                             .toggleClass("alert-success", true).show()
-                            .find("#content").text(data)
+                            .find("#content").text(data.areEqual);
                 });
 
                 posting.fail(function (jqXHR, textStatus) {
                     $('#resultMessage')
                             .toggleClass("alert-fail", true).show()
-                            .find("#content").text("Invalid JSON or server problem")
+                            .find("#content").text("Invalid JSON or server problem");
                 });
             });
         });
@@ -71,12 +71,12 @@
             <form id="compareForm" action="/json/compare" method="POST" role="form">
                 <div class="row clearfix">
                     <div class="col-md-6 column form-group">
-                        <label for="message1">First json:</label>
-                        <textarea id="message1" name="message1" class="form-control" rows="7">{"a": 1}</textarea>
+                        <label for="json1">First json:</label>
+                        <textarea id="json1" name="json1" class="form-control" rows="7">{"a": 1}</textarea>
                     </div>
                     <div class="col-md-6 column form-group">
-                        <label for="message2">Second json:</label>
-                        <textarea id="message2" name="message2" class="form-control" rows="7">{"a": "1"}</textarea>
+                        <label for="json2">Second json:</label>
+                        <textarea id="json2" name="json2" class="form-control" rows="7">{"a": "1"}</textarea>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
