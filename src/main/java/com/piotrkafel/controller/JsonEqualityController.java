@@ -1,11 +1,12 @@
 package com.piotrkafel.controller;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.JSONCompareResult;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+
+import static org.skyscreamer.jsonassert.JSONCompare.compareJSON;
 
 public class JsonEqualityController implements Route {
 
@@ -14,18 +15,7 @@ public class JsonEqualityController implements Route {
         String json1 = request.queryParams("message1");
         String json2 = request.queryParams("message2");
 
-        final JSONObject firstJson = new JSONObject(json1);
-        final JSONObject secondJson = new JSONObject(json2);
-
-        return areJsonsEqual(firstJson, secondJson);
-    }
-
-    private boolean areJsonsEqual(JSONObject firstJson, JSONObject secondJson) {
-        try {
-            JSONAssert.assertEquals(firstJson, secondJson, true);
-            return true;
-        } catch (JSONException | AssertionError e) {
-            return false;
-        }
+        JSONCompareResult result = compareJSON(json1, json2, JSONCompareMode.STRICT);
+        return result.passed();
     }
 }
