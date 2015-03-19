@@ -24,24 +24,30 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
     <script type="text/javascript">
-        $(document).ready(function(){
-            $("#compareForm").submit(function(event) {
+        $(document).ready(function () {
+            $("#resultMessage").hide();
+
+            $("#compareForm").submit(function (event) {
                 /* stop form from submitting normally */
                 event.preventDefault();
 
-                var $form = $( this ),
-                    url = $form.attr( 'action' );
+                var $form = $(this),
+                        url = $form.attr('action');
 
                 /* Send the data using post */
-                var posting = $.post( url, { message1: $('#message1').val(), message2: $('#message2').val() } );
+                var posting = $.post(url, { message1: $('#message1').val(), message2: $('#message2').val() });
 
                 /* Alerts the results */
-                posting.done(function( data ) {
-                  alert(data);
+                posting.done(function (data) {
+                    $('#resultMessage')
+                            .toggleClass("alert-success", true).show()
+                            .find("#content").text(data)
                 });
 
-                posting.fail(function( jqXHR, textStatus ) {
-                    alert("Invalid JSON or server problem");
+                posting.fail(function (jqXHR, textStatus) {
+                    $('#resultMessage')
+                            .toggleClass("alert-fail", true).show()
+                            .find("#content").text("Invalid JSON or server problem")
                 });
             });
         });
@@ -58,12 +64,10 @@
                     <small>alpha</small>
                 </h1>
             </div>
-            <!-- Alert view
-            <div class="alert alert-success alert-dismissable">
+            <div id="resultMessage" class="alert alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <strong>Correct or incorrect!</strong>
+                <p id="content"></p>
             </div>
-            -->
             <form id="compareForm" action="/json/compare" method="POST" role="form">
                 <div class="row clearfix">
                     <div class="col-md-6 column form-group">
