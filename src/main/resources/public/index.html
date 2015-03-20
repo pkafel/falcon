@@ -40,12 +40,14 @@
                 /* Alerts the results */
                 posting.done(function (data) {
                     $('#resultMessage')
-                            .toggleClass("alert-success", true).show()
+                            .toggleClass("alert-success", true)
+                            .toggleClass("alert-warning", false).show()
                             .find("#content").text(data.areEqual);
                 });
 
                 posting.fail(function (jqXHR, textStatus) {
                     $('#resultMessage')
+                            .toggleClass("alert-success", false)
                             .toggleClass("alert-warning", true).show()
                             .find("#content").text("Invalid JSON or server problem");
                 });
