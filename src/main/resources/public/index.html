@@ -46,7 +46,7 @@
 
                 posting.fail(function (jqXHR, textStatus) {
                     $('#resultMessage')
-                            .toggleClass("alert-fail", true).show()
+                            .toggleClass("alert-warning", true).show()
                             .find("#content").text("Invalid JSON or server problem");
                 });
             });
