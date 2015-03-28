@@ -1,12 +1,12 @@
-# Falcon - the greatest JSON util project #
+# Falcon - the greatest JSON diff#
 
-### Current functionality ###
+### What is this about ###
 
-* Check if two JSONs are equal
-* ...
+Well, in the end of the day we all work with JSON. One way or another. From time to time we need to have a precise information about what is the difference between two JSONs, right ? Thats basically it ! 
 
-### How do I get set up? ###
+We are using awesome json-diff lib that you can find here:
+[json-diff](https://github.com/pkafel/json-diff)
 
-+ Just run `WebInitializer` class and after that you can use Falcon front end or curl against it REST API:
-     * frontend can be found under: `localhost:4567/index.html`
-     * in order to use REST API use the following command `curl -X POST localhost:4567/json/compare -d 'json1={"a":1, "b":3}&json2={"b":3, "a":2}' -v`
+### Lets make it clear ###
+* this repo is **just a frontend** (even if with logic) !
+* the page will not be called *Falcon* ! It is just a project and repo name...
