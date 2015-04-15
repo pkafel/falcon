@@ -12,3 +12,7 @@ For more information about technology please visit our [wiki](https://bitbucket.
 ### Lets make it clear ###
 * this repo is **just a frontend** (even if with logic) !
 * the page will not be called *Falcon* ! It is just a project and repo name...
+
+And as always here goes picture !
+
+![Falcon](http://vignette1.wikia.nocookie.net/disney-infinity/images/6/68/Falcon-marvel-avengers-assemble-lifesize-standup.jpg/revision/latest?cb=20140505142504)
