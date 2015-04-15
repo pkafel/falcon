@@ -23,6 +23,7 @@
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/scripts.js"></script>
+    <script type="text/javascript" src="http://raw.githubusercontent.com/pkafel/json-diff/master/json-diff.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#resultMessage").hide();
@@ -31,26 +32,12 @@
                 /* stop form from submitting normally */
                 event.preventDefault();
 
-                var $form = $(this),
-                        url = $form.attr('action');
+                var areEqual = areJsonsEqual($('#json1').val(), $('#json2').val());
 
-                /* Send the data using post */
-                var posting = $.post(url, { json1: $('#json1').val(), json2: $('#json2').val() });
-
-                /* Alerts the results */
-                posting.done(function (data) {
-                    $('#resultMessage')
-                            .toggleClass("alert-success", true)
-                            .toggleClass("alert-warning", false).show()
-                            .find("#content").text(data.areEqual);
-                });
-
-                posting.fail(function (jqXHR, textStatus) {
-                    $('#resultMessage')
-                            .toggleClass("alert-success", false)
-                            .toggleClass("alert-warning", true).show()
-                            .find("#content").text("Invalid JSON or server problem");
-                });
+                $('#resultMessage')
+                    .toggleClass("alert-success", true)
+                    .toggleClass("alert-warning", false).show()
+                    .find("#content").text(areEqual);
             });
         });
     </script>
@@ -70,7 +57,7 @@
                 <button type="button" class="close" onclick="$('#resultMessage').hide()" aria-hidden="true">×</button>
                 <p id="content"></p>
             </div>
-            <form id="compareForm" action="/json/compare" method="POST" role="form">
+            <form id="compareForm">
                 <div class="row clearfix">
                     <div class="col-md-6 column form-group">
                         <label for="json1">First json:</label>
