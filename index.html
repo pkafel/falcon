@@ -26,15 +26,24 @@
     <script type="text/javascript" src="js/printer.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#diff-rep').hide();
+            $('#compareForm').show();
+            $('#diff-rep-container').hide();
 
             $("#compareForm").submit(function (event) {
                 /* stop form from submitting normally */
                 event.preventDefault();
 
-                var diff_selector = $('#diff-rep');
-                diff_selector.text('').show();
-                prettyPrint(JSON.parse($('#json1').val()), '+', 5, diff_selector);
+                var diff_rep = $('#diff-rep');
+
+                diff_rep.text('');
+                prettyPrint(JSON.parse($('#json1').val()), '+', 5, diff_rep);
+                $('#compareForm').hide();
+                $('#diff-rep-container').show();
+            });
+
+            $("#back-button").click(function (event) {
+                $('#diff-rep-container').hide();
+                $('#compareForm').show();
             });
         });
     </script>
@@ -54,17 +63,20 @@
                 <div class="row clearfix">
                     <div class="col-md-6 column form-group">
                         <label for="json1">First json:</label>
-                        <textarea id="json1" name="json1" class="form-control" rows="7">{"a": 1}</textarea>
+                        <textarea id="json1" name="json1" class="form-control" rows="12">{"a": 1}</textarea>
                     </div>
                     <div class="col-md-6 column form-group">
                         <label for="json2">Second json:</label>
-                        <textarea id="json2" name="json2" class="form-control" rows="7">{"a": "1"}</textarea>
+                        <textarea id="json2" name="json2" class="form-control" rows="12">{"a": "1"}</textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary pull-right">Submit</button>
             </form>
-        </div><br />
-        <div id="diff-rep" class="col-md-12 column" style="border: 1px solid #CCC;border-radius: 4px">
+        </div>
+        <div id="diff-rep-container" class="col-md-12 column">
+            <label for="diff-rep">Result:</label>
+            <pre id="diff-rep" class="panel-default"></pre>
+            <button id="back-button" class="btn btn-default pull-right">Back</button>
         </div>
     </div>
 </div>
