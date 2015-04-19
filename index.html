@@ -26,19 +26,11 @@
     <script type="text/javascript" src="js/printer.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#resultMessage").hide();
             $('#diff-rep').hide();
 
             $("#compareForm").submit(function (event) {
                 /* stop form from submitting normally */
                 event.preventDefault();
-
-                var areEqual = areJsonsEqual($('#json1').val(), $('#json2').val());
-
-                $('#resultMessage')
-                    .toggleClass("alert-success", true)
-                    .toggleClass("alert-warning", false).show()
-                    .find("#content").text(areEqual);
 
                 $('#diff-rep').show();
                 $('#diff-rep').text('');
@@ -57,10 +49,6 @@
                     Falcon Json Differ
                     <small>alpha</small>
                 </h1>
-            </div>
-            <div id="resultMessage" class="alert alert-dismissable">
-                <button type="button" class="close" onclick="$('#resultMessage').hide()" aria-hidden="true">×</button>
-                <p id="content"></p>
             </div>
             <form id="compareForm">
                 <div class="row clearfix">
