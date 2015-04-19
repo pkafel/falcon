@@ -32,9 +32,9 @@
                 /* stop form from submitting normally */
                 event.preventDefault();
 
-                $('#diff-rep').show();
-                $('#diff-rep').text('');
-                prettyPrint(JSON.parse($('#json1').val()), '+', 5, $('#diff-rep'));
+                var diff_selector = $('#diff-rep');
+                diff_selector.text('').show();
+                prettyPrint(JSON.parse($('#json1').val()), '+', 5, diff_selector);
             });
         });
     </script>
