@@ -25,11 +25,16 @@
     <script type="text/javascript" src="http://rawgit.com/pkafel/json-diff/master/json-diff.js"></script>
     <script type="text/javascript" src="js/printer.js"></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $('#compareForm').show();
+        function showCompareForm() {
+            $('#compare-form').show();
             $('#diff-rep-container').hide();
+            $('#json1').focus();
+        }
 
-            $("#compareForm").submit(function (event) {
+        $(document).ready(function () {
+            showCompareForm()
+
+            $("#compare-form").submit(function (event) {
                 /* stop form from submitting normally */
                 event.preventDefault();
 
@@ -37,13 +42,12 @@
 
                 diff_rep.text('');
                 prettyPrint(JSON.parse($('#json1').val()), '+', 5, diff_rep);
-                $('#compareForm').hide();
+                $('#compare-form').hide();
                 $('#diff-rep-container').show();
             });
 
-            $("#back-button").click(function (event) {
-                $('#diff-rep-container').hide();
-                $('#compareForm').show();
+            $("#back-button").click(function () {
+                showCompareForm();
             });
         });
     </script>
@@ -59,7 +63,7 @@
                     <small>alpha</small>
                 </h1>
             </div>
-            <form id="compareForm">
+            <form id="compare-form">
                 <div class="row clearfix">
                     <div class="col-md-6 column form-group">
                         <label for="json1">First json:</label>
