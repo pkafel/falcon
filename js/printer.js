@@ -1,53 +1,85 @@
-function getType(v) {
-    var type = typeof(v);
-    if (type === 'number' || type === 'string' || type === 'boolean') return 'scalar';
-    if (type === 'object') {
-        if (v.constructor === Array) return 'array';
-        else return 'object';
-    }
-}
-
 function indent(ind) {
     var s = '';
     while (s.length < ind * 2)
-        s += '&nbsp';
+        s += '&nbsp;';
     return s;
 }
-/*
-* json - object which needs to be printed
-* operation - character that will be printed at the begin of each line
-* ind - level od indention
-* div - html div in which result should be printed
- */
-function prettyPrint(json, operation, ind, div) {
 
-    function JsonInfo(json) {
-        if(json instanceof Array) {
-            this.numberOfElements = json.length;
-            this.getValueForIndex = function(index) { return json[index]; }
-            this.getKeyIfJson = function(index) { return ''; }
-        } else {
-            this.keys = Object.keys(json);
-            this.numberOfElements = this.keys.length;
-            this.getValueForIndex = function(index) { return json[this.keys[index]]; }
-            this.getKeyIfJson = function(index) { return this.keys[index] + ': '; }
+function getJsonKey(s) {
+    return s ? '\"' + s  + '\": ' : '';
+}
+
+function printDiffJson(json, operation, ind, div) {
+    for (var i = 0; i < json.length; i++) {
+        function comma() {
+            return ((i + 1 < json.length) ? ',' : '');
         }
-    }
 
-    var jsonInfo = new JsonInfo(json);
-    for (var i = 0; i < jsonInfo.numberOfElements; i++) {
-        function comma() { return ((i + 1 < jsonInfo.numberOfElements) ? ',' : ''); }
-        var o = jsonInfo.getValueForIndex(i);
-        var type = getType(o);
-        if(type === 'scalar') div.append(operation + indent(ind) + jsonInfo.getKeyIfJson(i) + o + comma() + '<br />');
-        else if(type === 'array') {
-            div.append(operation + indent(ind) + jsonInfo.getKeyIfJson(i) + '[<br />');
-            prettyPrint(o, operation, ind + 4, div);
+        var o = json[i];
+        var type = o.valueType;
+        if (type === 'SCALAR') {
+            div.append(operation + indent(ind) + getJsonKey(json.key) + o.value + comma() + '<br />');
+        } else if (type === 'ARRAY') {
+            div.append(operation + indent(ind) + getJsonKey(o.key) + '[<br />');
+            printDiffJson(o.value, operation, ind + 4, div);
             div.append(operation + indent(ind) + ']' + comma() + '<br />');
         } else {
-            div.append(operation + indent(ind) + jsonInfo.getKeyIfJson(i) + '{<br />');
-            prettyPrint(o, operation, ind + 4, div);
+            div.append(operation + indent(ind) + getJsonKey(o.key) + '{<br />');
+            printDiffJson(o.value, operation, ind + 4, div);
             div.append(operation + indent(ind) + '}' + comma() + '<br />');
+        }
+    }
+}
+
+
+function getOperationSignFromName(operationName) {
+    if(operationName === 'ADD') return '+';
+    else if(operationName === 'REMOVE') return '-';
+    else if(operationName === 'REPLACE') return '+\\-';
+    else return '&nbsp;';
+}
+
+function printTopDiff(obj, ind, div) {
+    if (obj.type === 'ARRAY') {
+        div.append(indent(ind) + '[<br />');
+        printNoneDiffJson(obj.diff, ind + 4, div);
+        div.append(indent(ind) + ']');
+    } else {
+        div.append(indent(ind) + '{<br />');
+        printNoneDiffJson(obj.diff, ind + 4, div);
+        div.append(indent(ind) + '}');
+    }
+}
+
+function printNoneDiffJson(json, ind, div) {
+    for(var i = 0; i < json.length; i++) {
+        var singleDiff = json[i];
+        var operation = getOperationSignFromName(singleDiff.op);
+
+        if(singleDiff.op === 'NONE') {
+            if(singleDiff.valueType === 'SCALAR') {
+                div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + '<br />');
+            } else if(singleDiff.valueType === 'ARRAY') {
+                div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '[<br />');
+                printNoneDiffJson(singleDiff.value, ind + 4, div);
+                div.append(operation + indent(ind) + ']' + '<br />');
+            } else {
+                div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '{<br />');
+                printNoneDiffJson(singleDiff.value, ind + 4, div);
+                div.append(operation + indent(ind) + '}' + '<br />');
+            }
+        } else {
+            if(singleDiff.valueType === 'ARRAY') {
+                div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '[<br />');
+                printDiffJson(singleDiff.value, operation, ind + 4, div);
+                div.append(operation + indent(ind) + ']' + '<br />');
+            } else if(singleDiff.valueType === 'OBJECT') {
+                div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '{<br />');
+                printDiffJson(singleDiff.value, operation, ind + 4, div);
+                div.append(operation + indent(ind) + '}' + '<br />');
+            } else {
+                div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + '<br />');
+            }
         }
     }
 }

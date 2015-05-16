@@ -32,7 +32,7 @@
         }
 
         $(document).ready(function () {
-            showCompareForm()
+            showCompareForm();
 
             $("#compare-form").submit(function (event) {
                 /* stop form from submitting normally */
@@ -41,7 +41,8 @@
                 var diff_rep = $('#diff-rep');
 
                 diff_rep.text('');
-                prettyPrint(JSON.parse($('#json1').val()), '+', 5, diff_rep);
+                var diff = getDiffRepresentation($('#json1').val(), $('#json2').val());
+                printTopDiff(diff, 1, diff_rep);
                 $('#compare-form').hide();
                 $('#diff-rep-container').show();
             });
