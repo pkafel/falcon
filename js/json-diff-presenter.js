@@ -74,7 +74,7 @@ function printJsonDiff(obj, ind, div) {
                     _printRestOfTheJsonWithOperation(singleDiff.value, operation, ind + INDENT_INCREASE, div);
                     div.append(operation + indent(ind) + '}' + comma() + '<br />');
                 } else {
-                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma + '<br />');
+                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma() + '<br />');
                 }
             }
         }
