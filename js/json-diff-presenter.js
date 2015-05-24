@@ -54,39 +54,43 @@ function printJsonDiff(obj, ind, div) {
 
             if(singleDiff.op === 'NONE') {
                 if(singleDiff.valueType === 'SCALAR') {
-                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma() +'<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma());
                 } else if(singleDiff.valueType === 'ARRAY') {
-                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '[<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + getJsonKey(singleDiff.key) + '[');
                     _traverseAndPrintJsonDiff(singleDiff.value, ind + INDENT_INCREASE, div);
-                    div.append(operation + indent(ind) + ']' + comma() + '<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + ']' + comma());
                 } else {
-                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '{<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + getJsonKey(singleDiff.key) + '{');
                     _traverseAndPrintJsonDiff(singleDiff.value, ind + INDENT_INCREASE, div);
-                    div.append(operation + indent(ind) + '}' + comma() + '<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + '}' + comma());
                 }
             } else {
                 if(singleDiff.valueType === 'ARRAY') {
-                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '[<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + getJsonKey(singleDiff.key) + '[');
                     _printRestOfTheJsonWithOperation(singleDiff.value, operation, ind + INDENT_INCREASE, div);
-                    div.append(operation + indent(ind) + ']' + comma() + '<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + ']' + comma());
                 } else if(singleDiff.valueType === 'OBJECT') {
-                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + '{<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + getJsonKey(singleDiff.key) + '{');
                     _printRestOfTheJsonWithOperation(singleDiff.value, operation, ind + INDENT_INCREASE, div);
-                    div.append(operation + indent(ind) + '}' + comma() + '<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + '}' + comma());
                 } else {
-                    div.append(operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma() + '<br />');
+                    _appendToTheOutput(div, operation + indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma());
                 }
             }
         }
     }
 
+    function _appendToTheOutput(div, text) {
+        div.append('<div>' + text + '<br /></div>');
+    }
+
     if (obj.type === 'ARRAY') {
-        div.append(indent(ind) + '[<br />');
+        _appendToTheOutput(div, indent(ind) + '[');
         _traverseAndPrintJsonDiff(obj.diff, ind + INDENT_INCREASE, div);
-        div.append(indent(ind) + ']');
+        _appendToTheOutput(div, indent(ind) + ']');
     } else {
-        div.append(indent(ind) + '{<br />');
+        _appendToTheOutput(div, indent(ind) + '{');
         _traverseAndPrintJsonDiff(obj.diff, ind + INDENT_INCREASE, div);
-        div.append(indent(ind) + '}');
+        _appendToTheOutput(div, indent(ind) + '}');
     }
 }

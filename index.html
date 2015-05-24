@@ -43,6 +43,7 @@
                 diff_rep.text('');
                 var diff = getDiffRepresentation($('#json1').val(), $('#json2').val());
                 printJsonDiff(diff, 1, diff_rep);
+
                 $('#compare-form').hide();
                 $('#diff-rep-container').show();
             });
@@ -80,7 +81,7 @@
         </div>
         <div id="diff-rep-container" class="col-md-12 column">
             <label for="diff-rep">Result:</label>
-            <pre id="diff-rep" class="panel-default"></pre>
+            <div id="diff-rep" class="panel-default"></div>
             <button id="back-button" class="btn btn-default pull-right">Back</button>
         </div>
     </div>
