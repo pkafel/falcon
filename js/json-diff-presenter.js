@@ -91,13 +91,17 @@ function printJsonDiff(obj, ind, div) {
         div.append('<div class="' + OPERATION_2_CLASS_NAME[operation] +'">' + operation + text + '<br /></div>');
     }
 
-    if (obj.type === 'ARRAY') {
+    if (obj.topType === 'ARRAY') {
         div.append('<div class="top-line-div">'+ indent(ind) + '[<br /></div>');
         _traverseAndPrintJsonDiff(obj.diff, ind + INDENT_INCREASE, div);
         div.append('<div class="bottom-line-div">' + indent(ind) + ']<br /></div>');
-    } else {
+    } else if(obj.topType === 'OBJECT') {
         div.append('<div class="top-line-div">' + indent(ind) + '{<br /></div>');
         _traverseAndPrintJsonDiff(obj.diff, ind + INDENT_INCREASE, div);
         div.append('<div class="bottom-line-div">' + indent(ind) + '}<br /></div>');
+    } else if(obj.topType === 'NONE') {
+        _traverseAndPrintJsonDiff(obj.diff, ind + INDENT_INCREASE, div);
+    } else {
+        throw "Unexpected diff type !";
     }
 }
