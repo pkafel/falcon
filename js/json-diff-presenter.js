@@ -20,6 +20,11 @@ function getJsonKey(s) {
     return s ? '\"' + s  + '\": ' : '';
 }
 
+function getJsonValue(v) {
+    return (typeof v == 'string' || v instanceof String)
+        ? '\"' + v  + '\"' : v;
+}
+
 //// MAIN FUNCTION
 function printJsonDiff(obj, ind, div) {
 
@@ -32,7 +37,7 @@ function printJsonDiff(obj, ind, div) {
             var o = json[i];
             var type = o.valueType;
             if (type === 'SCALAR') {
-                _appendToTheOutput(div, operation, indent(ind) + getJsonKey(o.key) + o.value + comma());
+                _appendToTheOutput(div, operation, indent(ind) + getJsonKey(o.key) + getJsonValue(o.value) + comma());
             } else if (type === 'ARRAY') {
                 _appendToTheOutput(div, operation, indent(ind) + getJsonKey(o.key) + '[');
                 _printRestOfTheJsonWithOperation(o.value, operation, ind + INDENT_INCREASE, div);
@@ -61,7 +66,7 @@ function printJsonDiff(obj, ind, div) {
 
             if(singleDiff.op === 'NONE') {
                 if(singleDiff.valueType === 'SCALAR') {
-                    _appendToTheOutput(div, operation, indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma());
+                    _appendToTheOutput(div, operation, indent(ind) + getJsonKey(singleDiff.key) + getJsonValue(singleDiff.value) + comma());
                 } else if(singleDiff.valueType === 'ARRAY') {
                     _appendToTheOutput(div, operation, indent(ind) + getJsonKey(singleDiff.key) + '[');
                     _traverseAndPrintJsonDiff(singleDiff.value, ind + INDENT_INCREASE, div);
@@ -81,7 +86,7 @@ function printJsonDiff(obj, ind, div) {
                     _printRestOfTheJsonWithOperation(singleDiff.value, operation, ind + INDENT_INCREASE, div);
                     _appendToTheOutput(div, operation, indent(ind) + '}' + comma());
                 } else {
-                    _appendToTheOutput(div, operation, indent(ind) + getJsonKey(singleDiff.key) + singleDiff.value + comma());
+                    _appendToTheOutput(div, operation, indent(ind) + getJsonKey(singleDiff.key) + getJsonValue(singleDiff.value) + comma());
                 }
             }
         }
