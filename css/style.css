@@ -32,3 +32,11 @@
     padding-left: 5px;
     padding-bottom: 5px;
 }
+
+.vresize {
+    resize: vertical;
+}
+
+.min-height-200 {
+    min-height:200px;
+}
