@@ -104,7 +104,7 @@ function printJsonDiff(obj, ind, div) {
         div.append('<div class="top-line-div">' + indent(ind) + '{<br /></div>');
         _traverseAndPrintJsonDiff(obj.diff, ind + INDENT_INCREASE, div);
         div.append('<div class="bottom-line-div">' + indent(ind) + '}<br /></div>');
-    } else if(obj.topType === 'NONE') {
+    } else if(obj.topType === 'NULL') {
         _traverseAndPrintJsonDiff(obj.diff, ind + INDENT_INCREASE, div);
     } else {
         throw "Unexpected diff type !";
