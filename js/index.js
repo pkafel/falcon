@@ -28,7 +28,9 @@ $(document).ready(function () {
         diff_rep.text('');
 
         try {
-          var diff = getDiffRepresentation($('#json1').val(), $('#json2').val());
+          var strategy = $('#strategy').val() === '1' ? new ComparingKeyStrategy() : new ComparingValueStrategy();
+          var diff = getDiffRepresentation($('#json1').val(), $('#json2').val(), strategy);
+
           printJsonDiff(diff, 1, diff_rep);
           showDiffForm();
         } catch (ex) {
@@ -38,5 +40,10 @@ $(document).ready(function () {
 
     $("#back-button").click(function () {
         showCompareForm();
+    });
+
+    $('#strategy-list li').click(function() {
+      $('#strategy').text($(this).text());
+      $('#strategy').val($(this).val());
     });
 });
