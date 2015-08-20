@@ -49,7 +49,20 @@
                         <textarea id="json2" name="json2" class="form-control vresize min-height-200" rows="12">{"a": "1"}</textarea>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary pull-right">Submit</button>
+                <div class="pull-right btn-toolbar">
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle" type="button" data-toggle="dropdown">
+                        <span id="strategy">Compare by Value</span>
+                        <span class="caret"></span></button>
+                        <ul id="strategy-list" class="dropdown-menu">
+                            <li value='0'><a href="#">Compare by Value</a></li>
+                            <li value='1'><a href="#">Compare by Key</a></li>
+                        </ul>
+                    </div>
+                    <div class="btn-group">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
