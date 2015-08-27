@@ -42,6 +42,36 @@ function setHotkeys() {
         e.preventDefault();
         showCompareForm();
     });
+    $("#json1").bind('keydown', 'ctrl+m', function(e) {
+        e.preventDefault();
+        if($('#strategy').val() === '0') {
+            $('#strategy').text('Compare by Key');
+            $('#strategy').val('1');
+        } else {
+            $('#strategy').text('Compare by Value');
+            $('#strategy').val('0');
+        }
+    });
+    $("#json2").bind('keydown', 'ctrl+m', function(e) {
+        e.preventDefault();
+        if($('#strategy').val() === '0') {
+            $('#strategy').text('Compare by Key');
+            $('#strategy').val('1');
+        } else {
+            $('#strategy').text('Compare by Value');
+            $('#strategy').val('0');
+        }
+    });
+    $(document).bind('keydown', 'ctrl+m', function(e) {
+        e.preventDefault();
+        if($('#strategy').val() === '0') {
+            $('#strategy').text('Compare by Key');
+            $('#strategy').val('1');
+        } else {
+            $('#strategy').text('Compare by Value');
+            $('#strategy').val('0');
+        }
+    });
 }
 
 function submitForm(event) {
