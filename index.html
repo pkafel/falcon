@@ -42,38 +42,43 @@
             <form id="compare-form">
                 <div class="row clearfix">
                     <div class="col-md-6 column form-group">
-                        <label class="control-label" for="json1">First json:</label>
-                        <textarea id="json1" name="json1" class="form-control vresize min-height-200" rows="12">{"a": 1}</textarea>
+                        <label class="control-label" for="json1">First JSON</label>
+                        <textarea id="json1" name="json1" class="form-control vresize min-height-400" rows="12">{"a": 1}</textarea>
                     </div>
                     <div class="col-md-6 column form-group">
-                        <label class="control-label" for="json2">Second json:</label>
-                        <textarea id="json2" name="json2" class="form-control vresize min-height-200" rows="12">{"a": "1"}</textarea>
+                        <label class="control-label" for="json2">Second JSON</label>
+                        <textarea id="json2" name="json2" class="form-control vresize min-height-400" rows="12">{"a": "1"}</textarea>
                     </div>
                 </div>
-                    <div class="pull-right btn-toolbar">
-                        <div class="btn-group">
-                            <button class="btn btn-default" type="button">
-                              <span id="strategy">Compare by Value</span>
-                            </button>
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span class="caret"></span>
-                              <span class="sr-only">dupa</span>
-                            </button>
-                            <ul id="strategy-list" class="dropdown-menu">
-                                <li value='0'><a href="#">Compare by Value</a></li>
-                                <li value='1'><a href="#">Compare by Key</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                          <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="well well-sm" style="display: table;vertical-align: middle;width: 100%;">
+                            <span class="hide-when-small">
+                                <span class="shortcut-title">Shortcuts</span>
+                                <span class="shortcut">ctrl+m</span>
+                                <span class="shortcut-description">change mode</span>
+                                <span class="shortcut">ctrl+enter</span>
+                                <span class="shortcut-description">compare JSONs</span>
+                            </span>
+                            <div class="btn-toolbar pull-right" style="vertical-align: middle;display: table-cell">
+                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                    <span id="strategy">Compare by Key and Value</span>
+                                    <span class="caret"></span></button>
+                                <ul id="strategy-list" class="dropdown-menu">
+                                    <li value='0'><a href="#">Compare by Key and Value</a></li>
+                                    <li value='1'><a href="#">Compare by Key</a></li>
+                                </ul>
+                                <button type="submit" class="btn btn-primary" style="vertical-align: middle;display: table-cell">Submit</button>
+                            </div>
                         </div>
                     </div>
+                </div>
             </form>
         </div>
     </div>
     <div id="diff-rep-container" class="row clearfix">
         <div class="col-md-12 column">
-            <label for="diff-rep">Result:</label>
+            <label for="diff-rep">Result</label>
             <div id="diff-rep" class="panel-default"></div>
             <button id="back-button" class="btn btn-default pull-right">Back</button>
         </div>
@@ -84,7 +89,6 @@
         <div class="row">
             <div class="col-md-12">
                 <hr/>
-                <a href="" class="pull-right">Shortcuts</a>
                 <p>All rights reserved @ 2015</p>
             </div>
         </div>

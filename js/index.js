@@ -105,7 +105,7 @@ ModeDropdown = {
             $('#strategy').text('Compare by Key');
             $('#strategy').val('1');
         } else {
-            $('#strategy').text('Compare by Value');
+            $('#strategy').text('Compare by Key and Value');
             $('#strategy').val('0');
         }
     },
@@ -132,8 +132,8 @@ BackButton = {
 
 function setHotkeys() {
     $(document).bind('keydown', 'ctrl+return', function(e) {
-        submitForm(e);
-        $("#back-button").focus();
+        ComparisonForms._submitForm(e);
+        BackButton.backButton().focus();
     });
     $(document).bind('keydown', 'ctrl+m', function(e) {
         e.preventDefault();
