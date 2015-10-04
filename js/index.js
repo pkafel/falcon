@@ -112,7 +112,7 @@ ModeDropdown = {
     },
 
     getStrategy: function() {
-        return $('#strategy').val() === '1' ? new ComparingKeyStrategy() : new ComparingValueStrategy();
+        return $('#strategy').val() === '1' ? new ComparingKeyStrategy() : new ComparingKeyAndValueStrategy();
     }
 };
 
