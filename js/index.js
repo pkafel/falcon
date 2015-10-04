@@ -98,6 +98,7 @@ ModeDropdown = {
             $('#strategy').text($(this).text());
             $('#strategy').val($(this).val());
         });
+        ModeDropdown.changeValue();
     },
 
     changeValue: function() {
