@@ -63,7 +63,7 @@ function printJsonDiff(obj, ind, div) {
             var singleDiff = json[i];
 
             if(singleDiff.op === 'NONE') {
-                if(singleDiff.valueType === 'SCALAR') {
+                if(singleDiff.valueType === 'SCALAR' || singleDiff.valueType === 'NULL') {
                     _appendToTheOutput(div, singleDiff.op, indent(ind) + getJsonKey(singleDiff.key) + getJsonValue(singleDiff.value) + comma());
                 } else if(singleDiff.valueType === 'ARRAY') {
                     _appendToTheOutput(div, singleDiff.op, indent(ind) + getJsonKey(singleDiff.key) + '[');
